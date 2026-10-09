@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Broadcaster" default="dist" basedir=".">
+    <property name="target" location="target" />
+    <property name="plugin" value="Broadcaster" />
+    <property name="version" value="1.0-SNAPSHOT" />
+
+    <property name="lib.dir" location="lib" />
+    <property name="bin.dir" location="target/classes" />
+
+    <property name="src.dir" location="src/main/java" />
+    <property name="res.dir" location="src/main/resources" />
+
+    <target name="init">
+        <mkdir dir="${lib.dir}" />
+        <mkdir dir="${bin.dir}"/>
+        <get src="https://hub.spigotmc.org/nexus/content/groups/public/org/spigotmc/spigot-api/1.13-R0.1-SNAPSHOT/spigot-api-1.13-R0.1-20180826.040111-146.jar"
+             dest="${lib.dir}/spigot-api.jar" />
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${bin.dir}" includeantruntime="false"
+               source="8" target="8" encoding="UTF-8" >
+            <compilerarg value="-Xlint:-options"/>
+            <classpath>
+                <pathelement location="${lib.dir}/spigot-api.jar" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="install" depends="compile">
+        <jar jarfile="${target}/${plugin}-${version}.jar">
+            <fileset dir="${bin.dir}" />
+            <fileset dir="${res.dir}" >
+                <include name="**/*" />
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="clean">
+        <delete dir="${lib.dir}" />
+        <delete dir="${target}" />
+    </target>
+</project>
