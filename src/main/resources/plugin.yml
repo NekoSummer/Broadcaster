@@ -1,0 +1,15 @@
+name: Broadcaster
+version: 1.0
+main: cn.xinyue_neko.plugins.Broadcaster.Broadcaster
+api-version: 1.13
+
+commands:
+  broadcaster:
+    description: 公告管理命令
+    usage: /broadcaster reload
+    permission: broadcaster.admin
+
+permissions:
+  simpleannouncer.admin:
+    description: 允许重载公告配置
+    default: op
